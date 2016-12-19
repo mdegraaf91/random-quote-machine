@@ -1,0 +1,134 @@
+
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+
+  <title>Random Quotes</title>
+  <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,400i,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+  <style>
+  body{
+    background: url(bg.png) repeat-x;
+    font-family: 'Raleway', sans-serif;
+  }
+  h2{
+    color: #fff;
+    font-family: 'Raleway', sans-serif;
+    font-weight: lighter;
+  }
+  .container {
+    width: 400px;
+    margin: 80px auto 0;
+    text-align: center;
+  }
+  .card{
+    padding: 20px 40px;
+    height: 450px;
+    border-radius: 10px;
+    background-color: #f3f1ed;
+    position: relative;
+  }
+  .card:before{
+    font-family: FontAwesome;
+    content: "\f10d";
+    font-size: 140px;
+    position: absolute;
+    left: 25px;
+    opacity: 0.03;
+  }
+  #quote{
+    font-size: 20px;
+    line-height: 37px;
+    color: #360050;
+  }
+  #author{
+    position: absolute;
+    bottom: 30px;
+    left: 0;
+    right: 0;
+    color: #b3b3b3;
+  }
+  #author:before,#author:after{
+    content: " - ";
+    display: inline;
+  }
+  a.tweet{
+    position: absolute;
+    bottom: 23px;
+    right: 25px;
+  }
+  #btn{
+    font-family: 'Raleway', sans-serif;
+    display: block;
+    margin: 25px auto 0;
+    padding: 10px;
+    width: 200px;
+    border: 1px solid #fff;
+    cursor: pointer;
+    background-color: transparent;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 19px;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+  }
+  #btn:hover{
+    background-color: #26ac73;
+  }
+  #btn i{
+    font-size: 15px;
+    margin: 0 3px 0 -3px;
+  }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Random Quote Machine</h2>
+  <div class="card">
+    <p id="quote"></p>
+    <span id="author"></span>
+    <a href="https://twitter.com/intent/tweet?hashtags=quotes&text=Computers are like bikinis. They save people a lot of guesswork." class="tweet" target="_blank"><img src="tweet.png"/></a>
+  </div>
+  <button id="btn"><i class="fa fa-random" aria-hidden="true"></i> New Quote</button>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+<script>
+  $(document).ready(function() {
+    $.getJSON("http://quotes.stormconsultancy.co.uk/quotes.json", function(data) {
+        //create random number between 0 and data.length
+        function getRandom(min,max){
+          min = Math.ceil(min);
+          max = Math.floor(max);
+          return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+        var random = getRandom(1,data.length);
+        var author = data[random].author;
+        var quote = data[random].quote;
+        var html = "";
+
+        $("#quote").html(quote);
+        $("#author").html(author);
+        $(".tweet").attr("href", 'https://twitter.com/intent/tweet?hashtags=quotes&text=' + quote + ' by: ' + author);
+
+    $("#btn").on("click", function() {
+        var random = getRandom(1,data.length);
+        var author = data[random].author;
+        var quote = data[random].quote;
+        $("#quote").html(quote);
+        $("#author").html(author);
+        $(".tweet").attr("href", 'https://twitter.com/intent/tweet?hashtags=quotes&text=' + quote + ' by: ' + author);
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
