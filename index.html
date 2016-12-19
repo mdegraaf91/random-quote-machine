@@ -92,7 +92,7 @@
   <div class="card">
     <p id="quote"></p>
     <span id="author"></span>
-    <a href="https://twitter.com/intent/tweet?hashtags=quotes&text=Computers are like bikinis. They save people a lot of guesswork." class="tweet" target="_blank"><img src="tweet.png"/></a>
+    <a href="" class="tweet" target="_blank"><img src="tweet.png"/></a>
   </div>
   <button id="btn"><i class="fa fa-random" aria-hidden="true"></i> New Quote</button>
 </div>
@@ -102,7 +102,7 @@
   crossorigin="anonymous"></script>
 <script>
   $(document).ready(function() {
-    $.getJSON("http://quotes.stormconsultancy.co.uk/quotes.json", function(data) {
+    $.getJSON("https://api.myjson.com/bins/10opu1", function(data) {
         //create random number between 0 and data.length
         function getRandom(min,max){
           min = Math.ceil(min);
